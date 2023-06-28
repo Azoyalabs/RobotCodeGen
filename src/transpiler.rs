@@ -70,13 +70,13 @@ impl MsgDescr {
 
         return match self {
             MsgDescr::ExecuteMsg { ident: _, args: _ } => {
-                format!("\tpub fn {camel_name}(app: &mut App, {args_fn_string} funds: Vec<Coin>);")
+                format!("\tfn {camel_name}(app: &mut App, {args_fn_string} funds: Vec<Coin>);")
             }
             MsgDescr::QueryMsg {
                 ident: _,
                 args: _,
                 return_type,
-            } => format!("\tpub fn {camel_name}(app: &App, {args_fn_string}) -> {return_type};"),
+            } => format!("\tfn {camel_name}(app: &App, {args_fn_string}) -> {return_type};"),
         };
     }
 
