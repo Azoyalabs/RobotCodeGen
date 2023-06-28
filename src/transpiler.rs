@@ -220,6 +220,11 @@ pub fn generate_robot_code_from_str(content: String, outfile: &str, crate_name: 
     // import Robot and file imports
     file.write("use robot_code_gen::Robot;\n".as_bytes())
         .unwrap();
+    file.write("use cosmwasm_std::{Addr, Coin};\n".as_bytes())
+        .unwrap();
+    file.write("use cw_multi_test::App;\n".as_bytes())
+    .unwrap();
+
 
     /*
     let import_name = env!("CARGO_CRATE_NAME").to_string();
