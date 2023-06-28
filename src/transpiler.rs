@@ -70,13 +70,13 @@ impl MsgDescr {
 
         return match self {
             MsgDescr::ExecuteMsg { ident: _, args: _ } => {
-                format!("\tfn {camel_name}(app: &mut App, {args_fn_string} funds: Vec<Coin>);")
+                format!("\tfn {camel_name}(app: &mut App, contract: &Addr, caller: &Addr, {args_fn_string} funds: Vec<Coin>);")
             }
             MsgDescr::QueryMsg {
                 ident: _,
                 args: _,
                 return_type,
-            } => format!("\tfn {camel_name}(app: &App, {args_fn_string}) -> {return_type};"),
+            } => format!("\tfn {camel_name}(app: &App, contract: &Addr, {args_fn_string}) -> {return_type};"),
         };
     }
 
@@ -222,7 +222,7 @@ pub fn generate_robot_code_from_str(content: String, outfile: &str, crate_name: 
         .unwrap();
     file.write("use cosmwasm_std::{Addr, Coin};\n".as_bytes())
         .unwrap();
-    file.write("use cw_multi_test::App;\n".as_bytes())
+    file.write("use cw_multi_test::{App, Executor};\n".as_bytes())
     .unwrap();
 
 
