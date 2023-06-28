@@ -213,7 +213,7 @@ pub fn generate_robot_code_from_str(content: String, outfile: &str, crate_name: 
 
     // enforce pascal case
     let crate_name = to_pascal_case(&match crate_name {
-        None => env!("CARGO_CRATE_NAME").to_string(),
+        None => env!("CARGO_PKG_NAME").to_string(),
         Some(cn) => cn,
     });
 
