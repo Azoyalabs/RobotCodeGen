@@ -217,6 +217,10 @@ pub fn generate_robot_code_from_str(content: String, outfile: &str, crate_name: 
         Some(cn) => cn,
     });
 
+    // import Robot and file imports 
+    file.write("use robot_code_gen::Robot;\n".as_bytes())
+        .unwrap();    
+
     let trait_name = format!("{crate_name}Robot");
     file.write(format!("pub trait {trait_name} {{\n").as_bytes())
         .unwrap();
