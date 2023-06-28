@@ -220,7 +220,9 @@ pub fn generate_robot_code_from_str(content: String, outfile: &str, crate_name: 
     // import Robot and file imports
     file.write("use robot_code_gen::Robot;\n".as_bytes())
         .unwrap();
-    file.write(format!("use {crate_name}::msg::*;\n\n").as_bytes())
+
+    let import_name = env!("CARGO_CRATE_NAME").to_string();
+    file.write(format!("use {import_name}::msg::*;\n\n").as_bytes())
         .unwrap();
 
     let trait_name = format!("{crate_name}Robot");
