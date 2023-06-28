@@ -119,13 +119,13 @@ impl MsgDescr {
 
         return match self {
             MsgDescr::ExecuteMsg { ident: _, args: _ } => {
-                format!("\tfn {camel_name}(app: &mut App, contract: &Addr, caller: &Addr, {args_fn_string} funds: Vec<Coin>){{\n\t\tlet msg = {name} {{{args_msg}}};\n\t\tapp.execute_contract(caller.to_owned(), contract.to_owned(), &msg, &funds).unwrap();\n\t}}\n")
+                format!("\tfn {camel_name}(app: &mut App, contract: &Addr, caller: &Addr, {args_fn_string} funds: Vec<Coin>){{\n\t\tlet msg = ExecuteMsg::{name} {{{args_msg}}};\n\t\tapp.execute_contract(caller.to_owned(), contract.to_owned(), &msg, &funds).unwrap();\n\t}}\n")
             }
             MsgDescr::QueryMsg {
                 ident: _,
                 args: _,
                 return_type,
-            } => format!("\tfn {camel_name}(app: &App, contract: &Addr, {args_fn_string}) -> {return_type}{{\n\t\tlet msg = {name} {{{args_msg}}};\n\t\treturn app.wrap().query_wasm_smart(contract.to_owned(), &msg).unwrap();\n\t}}\n"),
+            } => format!("\tfn {camel_name}(app: &App, contract: &Addr, {args_fn_string}) -> {return_type}{{\n\t\tlet msg = QueryMsg::{name} {{{args_msg}}};\n\t\treturn app.wrap().query_wasm_smart(contract.to_owned(), &msg).unwrap();\n\t}}\n"),
         };
     }
 }
