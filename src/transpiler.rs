@@ -221,8 +221,19 @@ pub fn generate_robot_code_from_str(content: String, outfile: &str, crate_name: 
     file.write("use robot_code_gen::Robot;\n".as_bytes())
         .unwrap();
 
+    /*
     let import_name = env!("CARGO_CRATE_NAME").to_string();
-    file.write(format!("use {import_name}::msg::*;\n\n").as_bytes())
+    let path = std::env::var("CARGO_MANIFEST_DIR").unwrap();
+    let meta = MetadataCommand::new()
+        .manifest_path("./Cargo.toml")
+        .current_dir(&path)
+        .exec()
+        .unwrap();
+    let root = meta.root_package().unwrap();
+    let option = root.metadata["my"]["option"].as_str().unwrap();
+    let version = &root.version;
+    */
+    file.write(format!("use {crate_name}::msg::*;\n\n").as_bytes())
         .unwrap();
 
     let trait_name = format!("{crate_name}Robot");
