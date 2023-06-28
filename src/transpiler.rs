@@ -233,7 +233,9 @@ pub fn generate_robot_code_from_str(content: String, outfile: &str, crate_name: 
     let option = root.metadata["my"]["option"].as_str().unwrap();
     let version = &root.version;
     */
-    file.write(format!("use {crate_name}::msg::*;\n\n").as_bytes())
+
+    let crate_name_snake = to_snake_case(&crate_name); 
+    file.write(format!("use {crate_name_snake}::msg::*;\n\n").as_bytes())
         .unwrap();
 
     let trait_name = format!("{crate_name}Robot");
